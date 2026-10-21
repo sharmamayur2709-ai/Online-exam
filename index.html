@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Physics Room by Mayur Sir - Grade 11 & 12 MCQ Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #475569;
+    }
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+      }
+      header, #themeToggleBtn, #navExamTimer, #toastNotification, .no-print, button, .action-buttons {
+        display: none !important;
+      }
+      #printableReportArea {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+  <header class="border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="resetToSetup()">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25 ring-2 ring-indigo-400/30">
+          <i class="fa-solid fa-atom text-2xl animate-spin-slow"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl sm:text-2xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-indigo-600 to-amber-600 dark:from-indigo-400 dark:via-purple-300 dark:to-amber-400 bg-clip-text text-transparent">
+              The Physics Room
+            </span>
+            <span class="text-[11px] px-2 py-0.5 rounded-full font-extrabold bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
+              by Mayur Sir
+            </span>
+          </div>
+          <p class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hidden sm:block">
+            Premier Testing Portal for JEE • NEET • GUJCET • Board Exams
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Live timer during test -->
+        <div id="navExamTimer" class="hidden items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/80 text-amber-700 dark:text-amber-400 font-mono text-sm font-semibold">
+          <i class="fa-regular fa-clock animate-pulse"></i>
+          <span id="headerTimerDisplay">00:00</span>
+        </div>
+
+        <div id="navExamBadge" class="hidden sm:hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+          <i class="fa-solid fa-crosshairs text-indigo-500"></i>
+          <span id="navExamTargetLabel">JEE Level</span>
+        </div>
+
+        <!-- Dark mode toggle -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:block"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Banner / Toast -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 border border-slate-800 dark:border-slate-200">
+      <i id="toastIcon" class="fa-solid fa-circle-info text-indigo-400"></i>
+      <span id="toastMsg" class="text-sm font-medium">Notification message</span>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col">
+
+    <section id="viewSetup" class="space-y-8 animate-fadeIn">
+      <!-- Institute Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-10 shadow-xl border border-indigo-700/40">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold border border-amber-400/30 mb-3">
+            <i class="fa-solid fa-award"></i>
+            <span>Mentorship & Exam Mastery by Mayur Sir</span>
+          </div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+            The Physics Room Testing Portal
+          </h1>
+          <p class="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed">
+            Target top percentiles in <span class="text-amber-400 font-bold">JEE Main & Adv</span>, <span class="text-emerald-400 font-bold">NEET-UG</span>, <span class="text-amber-300 font-bold">GUJCET (+1/-0.25)</span>, and <span class="text-sky-400 font-bold">Board Exams (No Neg. Marks)</span>. Includes authentic single-chapter drill and combined Class 11 + 12 complete full mocks.
+          </p>
+        </div>
+      </div>
+
+      <!-- Config Wizard Card -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 dark:border-slate-800/80 max-w-4xl mx-auto">
+        <div class="space-y-8">
+
+          <!-- 0. Student Profile Information -->
+          <div class="bg-slate-50 dark:bg-slate-800/40 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-id-card text-indigo-500"></i>
+              <span>Student Profile Details (For Formal Mayur Sir Diagnostic Report)</span>
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="studentNameInput" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Student Full Name</label>
+                <input type="text" id="studentNameInput" placeholder="e.g. Yash Patel" value="Yash Patel" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+              </div>
+              <div>
+                <label for="studentIdInput" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Candidate / Batch ID</label>
+                <input type="text" id="studentIdInput" placeholder="e.g. TPR-2026-BATCH-A" value="TPR-2026-BATCH-A" class="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 1: Target Exam Selection (JEE, NEET, GUJCET, Board MCQs) -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Step 1: Select Target Exam Level
+              </label>
+              <span class="text-xs text-amber-600 dark:text-amber-400 font-semibold" id="examMarkingSchemeHint">Scoring: +4 for Correct, -1 for Incorrect</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <!-- JEE -->
+              <button type="button" onclick="selectExamLevel('jee')" id="examLevelBtn-jee" class="exam-level-tab p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/70 dark:bg-indigo-950/40 text-left transition relative">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-black px-2 py-0.5 rounded bg-indigo-600 text-white">JEE</span>
+                  <i class="fa-solid fa-calculator text-indigo-600 dark:text-indigo-400"></i>
+                </div>
+                <div class="font-bold text-sm text-slate-900 dark:text-white">JEE Main & Adv</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">+4 / -1 Marking</div>
+              </button>
+
+              <!-- NEET -->
+              <button type="button" onclick="selectExamLevel('neet')" id="examLevelBtn-neet" class="exam-level-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-left transition relative">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-black px-2 py-0.5 rounded bg-emerald-600 text-white">NEET</span>
+                  <i class="fa-solid fa-stethoscope text-emerald-600 dark:text-emerald-400"></i>
+                </div>
+                <div class="font-bold text-sm text-slate-900 dark:text-white">NEET-UG Pattern</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">+4 / -1 Marking</div>
+              </button>
+
+              <!-- GUJCET -->
+              <button type="button" onclick="selectExamLevel('gujcet')" id="examLevelBtn-gujcet" class="exam-level-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-left transition relative">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-black px-2 py-0.5 rounded bg-amber-600 text-white">GUJCET</span>
+                  <i class="fa-solid fa-award text-amber-600 dark:text-amber-400"></i>
+                </div>
+                <div class="font-bold text-sm text-slate-900 dark:text-white">GUJCET Exam</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">+1 / -0.25 (40 MCQs)</div>
+              </button>
+
+              <!-- Board MCQs -->
+              <button type="button" onclick="selectExamLevel('board')" id="examLevelBtn-board" class="exam-level-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-left transition relative">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-black px-2 py-0.5 rounded bg-violet-600 text-white">BOARD</span>
+                  <i class="fa-solid fa-graduation-cap text-violet-600 dark:text-violet-400"></i>
+                </div>
+                <div class="font-bold text-sm text-slate-900 dark:text-white">Board MCQs</div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">+1 / 0 (No Neg. Marks)</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Syllabus Scope (Grade 11, Grade 12, Combined 11+12) -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              Step 2: Select Syllabus Scope / Grade
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button type="button" onclick="selectGrade('11')" id="gradeBtn11" class="grade-tab p-3.5 rounded-2xl border-2 border-indigo-600 bg-indigo-50/60 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 font-semibold flex items-center gap-3 transition">
+                <span class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shrink-0">11</span>
+                <div class="text-left">
+                  <div class="text-sm font-bold">Class 11</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Mechanics & Foundations</div>
+                </div>
+              </button>
+
+              <button type="button" onclick="selectGrade('12')" id="gradeBtn12" class="grade-tab p-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 font-semibold flex items-center gap-3 transition">
+                <span class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-sm font-bold shrink-0">12</span>
+                <div class="text-left">
+                  <div class="text-sm font-bold">Class 12</div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Electrodynamics, Optics & Modern</div>
+                </div>
+              </button>
+
+              <button type="button" onclick="selectGrade('combined')" id="gradeBtncombined" class="grade-tab p-3.5 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 font-semibold flex items-center gap-3 transition">
+                <span class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-black shrink-0">11+12</span>
+                <div class="text-left">
+                  <div class="text-sm font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1">
+                    <span>Complete Syllabus</span>
+                    <i class="fa-solid fa-star text-[10px]"></i>
+                  </div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">Full NEET & JEE Combined Mock</div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Choose Subject -->
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              Step 3: Choose Subject (Physics Special by Mayur Sir)
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button type="button" onclick="selectSubject('physics')" id="subjBtn-physics" class="subj-tab p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/40 flex flex-col items-center gap-2 text-center transition ring-1 ring-indigo-400">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl shadow-inner">
+                  <i class="fa-solid fa-atom"></i>
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="font-bold text-sm">Physics</span>
+                  <i class="fa-solid fa-star text-amber-500 text-[10px]" title="Mayur Sir Core"></i>
+                </div>
+                <span class="text-xs text-slate-500 dark:text-slate-400">Mechanics & Fields</span>
+              </button>
+
+              <button type="button" onclick="selectSubject('chemistry')" id="subjBtn-chemistry" class="subj-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 flex flex-col items-center gap-2 text-center transition">
+                <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-flask-vial"></i>
+                </div>
+                <span class="font-bold text-sm">Chemistry</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400">Organic & Physical</span>
+              </button>
+
+              <button type="button" onclick="selectSubject('biology')" id="subjBtn-biology" class="subj-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 flex flex-col items-center gap-2 text-center transition">
+                <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-dna"></i>
+                </div>
+                <span class="font-bold text-sm">Biology</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400">Botany & Zoology</span>
+              </button>
+
+              <button type="button" onclick="selectSubject('math')" id="subjBtn-math" class="subj-tab p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 flex flex-col items-center gap-2 text-center transition">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+                  <i class="fa-solid fa-square-root-variable"></i>
+                </div>
+                <span class="font-bold text-sm">Mathematics</span>
+                <span class="text-xs text-slate-500 dark:text-slate-400">Calculus & Algebra</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4: Pick Chapter / Unit -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Step 4: Pick Chapter / Syllabus Unit
+              </label>
+              <span id="chapterCountLabel" class="text-xs font-medium text-indigo-600 dark:text-indigo-400"></span>
+            </div>
+            <select id="chapterSelect" class="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+
+          <!-- Step 5: Number of Questions & Mode (5, 10, 15, 20, 25, 40 GujCET, 45, 50) -->
+          <div class="space-y-4 pt-2">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Step 5: Number of Questions
+                </label>
+                <span class="text-xs text-slate-500 dark:text-slate-400 font-medium" id="patternQuestionHint">
+                  GUJCET = 40 • NEET = 45/50 • JEE = 25/50
+                </span>
+              </div>
+              <div class="grid grid-cols-4 sm:grid-cols-8 gap-2">
+                <button type="button" onclick="setQuestionCount(5)" id="qCount5" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">5</button>
+                <button type="button" onclick="setQuestionCount(10)" id="qCount10" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">10</button>
+                <button type="button" onclick="setQuestionCount(15)" id="qCount15" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">15</button>
+                <button type="button" onclick="setQuestionCount(20)" id="qCount20" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">20</button>
+                <button type="button" onclick="setQuestionCount(25)" id="qCount25" class="q-count-btn py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50 dark:bg-indigo-950/60 font-bold text-indigo-600 dark:text-indigo-400 text-center transition text-xs sm:text-sm">25 (JEE)</button>
+                <button type="button" onclick="setQuestionCount(40)" id="qCount40" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm text-amber-600 dark:text-amber-400">40 (GUJCET)</button>
+                <button type="button" onclick="setQuestionCount(45)" id="qCount45" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">45 (NEET)</button>
+                <button type="button" onclick="setQuestionCount(50)" id="qCount50" class="q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm">50 (Full)</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <label class="flex items-center justify-between p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" id="aiModeToggle" class="rounded text-indigo-600 focus:ring-indigo-500 w-4 h-4">
+                  <div>
+                    <span class="text-xs font-bold block">AI Dynamic Exam Generator</span>
+                    <span class="text-[10px] text-slate-500">Synthesizes novel JEE/NEET/GUJCET/Board level questions</span>
+                  </div>
+                </div>
+                <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">Gemini 3</span>
+              </label>
+
+              <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between">
+                <div>
+                  <span class="text-xs font-bold block">Selected Pattern</span>
+                  <span id="currentLevelDisplayBadge" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">JEE Main / Advanced Level</span>
+                </div>
+                <i class="fa-solid fa-shield-halved text-indigo-500"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Test CTA -->
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+            <button type="button" onclick="startExam()" id="startExamBtn" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-amber-600 hover:from-indigo-500 hover:to-amber-500 text-white font-bold text-lg shadow-lg shadow-indigo-600/25 transition duration-150 transform active:scale-[0.99] flex items-center justify-center gap-3">
+              <span>Start Test</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="viewExam" class="hidden flex-1 flex-col animate-fadeIn">
+      <!-- Exam Control Bar -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold text-xs border border-indigo-200 dark:border-indigo-800">
+            <span id="examMetaGrade">Grade 11</span> • <span id="examMetaSubject">Physics</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg text-xs font-black uppercase bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800" id="examMetaLevelTag">
+            JEE Main
+          </span>
+          <span class="text-sm font-semibold truncate max-w-xs text-slate-700 dark:text-slate-300" id="examMetaChapter">Kinematics</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Timer Display -->
+          <div class="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-mono font-bold text-base">
+            <i class="fa-regular fa-clock text-indigo-500"></i>
+            <span id="examTimer">00:00</span>
+          </div>
+
+          <!-- Submit Test Button -->
+          <button type="button" onclick="confirmSubmitExam()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+            <span>Submit Test</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Question & Palette Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 flex-1 items-start">
+
+        <!-- Question View Box -->
+        <div class="lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between min-h-[500px]">
+          <div>
+            <!-- Question Top indicator -->
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-6">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Question</span>
+                <span id="currentQuestionNumDisplay" class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400">1</span>
+                <span class="text-xs text-slate-400 font-medium">/ <span id="totalQuestionsCountDisplay">25</span></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="toggleBookmarkCurrent()" id="bookmarkBtn" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5 transition">
+                  <i class="fa-regular fa-bookmark" id="bookmarkIcon"></i>
+                  <span>Mark for Review</span>
+                </button>
+                <button type="button" onclick="clearCurrentSelection()" class="text-xs font-medium text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 px-2 py-1">
+                  Clear Choice
+                </button>
+              </div>
+            </div>
+
+            <!-- Question Stem -->
+            <div class="mb-8">
+              <h2 id="questionText" class="text-lg sm:text-xl font-semibold leading-relaxed text-slate-900 dark:text-slate-100">
+                Loading question...
+              </h2>
+            </div>
+
+            <!-- Options Grid -->
+            <div id="optionsContainer" class="space-y-3">
+              <!-- Dynamically populated radio option blocks -->
+            </div>
+          </div>
+
+          <!-- Question Footer Navigation -->
+          <div class="pt-8 mt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <button type="button" onclick="navigateQuestion(-1)" id="prevBtn" class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold flex items-center gap-2 transition disabled:opacity-40 disabled:pointer-events-none">
+              <i class="fa-solid fa-chevron-left text-xs"></i>
+              <span>Previous</span>
+            </button>
+
+            <span class="text-xs text-slate-400 hidden sm:inline-block">The Physics Room by Mayur Sir Portal</span>
+
+            <button type="button" onclick="navigateQuestion(1)" id="nextBtn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold flex items-center gap-2 transition shadow-md shadow-indigo-600/20">
+              <span id="nextBtnLabel">Next</span>
+              <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar / Question Grid Palette -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm space-y-5">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-slate-800 dark:text-slate-200">Question Palette</h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400" id="paletteExamTag">JEE</span>
+          </div>
+          
+          <!-- Palette Status Indicators -->
+          <div class="grid grid-cols-2 gap-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-emerald-500 inline-block"></span>
+              <span>Answered</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-amber-500 inline-block"></span>
+              <span>Flagged</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded bg-slate-200 dark:bg-slate-700 inline-block"></span>
+              <span>Unattempted</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded border-2 border-indigo-600 inline-block"></span>
+              <span>Active</span>
+            </div>
+          </div>
+
+          <!-- Numbers Grid (up to 50 items with smooth scrolling) -->
+          <div id="paletteNumbersGrid" class="grid grid-cols-5 gap-2 max-h-72 overflow-y-auto custom-scroll pr-1">
+            <!-- Dynamic button per question -->
+          </div>
+
+          <!-- Quick Test Summary Box -->
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Attempted:</span>
+              <span id="paletteAttemptedCount" class="font-bold text-slate-900 dark:text-white">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Marked for Review:</span>
+              <span id="paletteMarkedCount" class="font-bold text-amber-600">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">Remaining:</span>
+              <span id="paletteRemainingCount" class="font-bold text-slate-900 dark:text-white">0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="viewResult" class="hidden space-y-8 animate-fadeIn">
+      <!-- Result Banner Card -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-3 py-1 rounded-full text-xs font-black tracking-wider uppercase bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                The Physics Room by Mayur Sir
+              </span>
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300" id="resTargetExamBadge">
+                JEE Main Format
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1" id="resultGreeting">
+              Great Effort! Here is your score breakdown.
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1" id="resultMetaSubtitle">
+              Class 11 • Physics • Kinematics
+            </p>
+          </div>
+
+          <!-- Circular Score Card -->
+          <div class="flex items-center gap-6">
+            <div class="relative w-28 h-28 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" class="text-slate-100 dark:text-slate-800 fill-none" />
+                <circle id="scoreCircleSvg" cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round" class="text-indigo-600 transition-all duration-1000 fill-none" />
+              </svg>
+              <div class="absolute flex flex-col items-center justify-center">
+                <span id="scorePercentVal" class="text-2xl font-black text-slate-900 dark:text-white">0%</span>
+                <span class="text-[10px] text-slate-400 uppercase font-semibold">Score</span>
+              </div>
+            </div>
+
+            <div class="space-y-1 text-sm">
+              <div><span class="text-slate-500">Correct:</span> <strong id="resCorrectCount" class="text-emerald-600">0</strong></div>
+              <div><span class="text-slate-500">Incorrect:</span> <strong id="resIncorrectCount" class="text-rose-600">0</strong></div>
+              <div><span class="text-slate-500">Unanswered:</span> <strong id="resUnansweredCount" class="text-amber-600">0</strong></div>
+              <div><span class="text-slate-500">Net Score:</span> <strong id="resNetScoreCalc" class="text-indigo-600 dark:text-indigo-400">0 / 0</strong></div>
+              <div><span class="text-slate-500">Time Spent:</span> <strong id="resTimeSpent" class="text-slate-700 dark:text-slate-300">0m 0s</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter tabs for reviewing answers -->
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase text-slate-400 mr-1">Filter:</span>
+            <button onclick="filterReviewList('all')" id="filterBtnAll" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition">All Questions</button>
+            <button onclick="filterReviewList('incorrect')" id="filterBtnIncorrect" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Incorrect Only</button>
+            <button onclick="filterReviewList('correct')" id="filterBtnCorrect" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">Correct Only</button>
+          </div>
+
+          <div class="flex items-center flex-wrap gap-3">
+            <button onclick="openStudentReportModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-amber-600 hover:from-indigo-500 hover:to-amber-500 text-white font-bold text-xs flex items-center gap-2 transition shadow-md shadow-indigo-600/20">
+              <i class="fa-solid fa-file-waveform"></i>
+              <span>View Mayur Sir Report Card</span>
+            </button>
+            <button onclick="printStudentReportDirectly()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-xs flex items-center gap-2 transition">
+              <i class="fa-solid fa-print"></i>
+              <span>Print / PDF</span>
+            </button>
+            <button onclick="resetToSetup()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-xs flex items-center gap-2 transition">
+              <i class="fa-solid fa-redo"></i>
+              <span>Retake Test</span>
+            </button>
+            <button onclick="copyScoreSummary()" class="px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 font-semibold text-xs flex items-center gap-2 transition">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copy Score</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Title for Solutions -->
+      <div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-book-open-reader text-indigo-600"></i>
+          <span>Explanations & Detailed Logic Debunk</span>
+        </h3>
+        <p class="text-xs text-slate-500 mt-1">
+          Review step-by-step logic curated per Mayur Sir's methodology to understand why the correct option holds and why distractor options fail.
+        </p>
+      </div>
+
+      <!-- Solutions Container -->
+      <div id="solutionsReviewContainer" class="space-y-6">
+        <!-- Dynamically rendered review cards -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="studentReportModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-6 max-h-[92vh] overflow-y-auto custom-scroll relative">
+      
+      <!-- Modal Close Button -->
+      <button onclick="closeStudentReportModal()" class="absolute top-5 right-5 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Printable Report Container -->
+      <div id="printableReportArea" class="space-y-6 bg-white dark:bg-slate-900">
+        
+        <!-- Report Header -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b-2 border-slate-100 dark:border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-indigo-600 text-white flex items-center justify-center text-2xl shadow-md">
+              <i class="fa-solid fa-atom"></i>
+            </div>
+            <div>
+              <div class="text-xs font-black tracking-widest text-amber-600 uppercase">THE PHYSICS ROOM</div>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">ACADEMIC DIAGNOSTIC SCORECARD</h2>
+              <p class="text-xs text-slate-500 font-semibold">Specialized Guidance & Testing by Mayur Sir</p>
+            </div>
+          </div>
+          <div class="text-left sm:text-right text-xs text-slate-500">
+            <div><span class="font-bold text-slate-700 dark:text-slate-300">Target Standard:</span> <span id="repTargetStandard" class="font-bold text-indigo-600">JEE Main Level</span></div>
+            <div><span class="font-bold text-slate-700 dark:text-slate-300">Report Date:</span> <span id="repGeneratedDate">Oct 21, 2026</span></div>
+            <div><span class="font-bold text-slate-700 dark:text-slate-300">Marking Formula:</span> <span id="repMarkingScheme">Standard (+4, -1)</span></div>
+          </div>
+        </div>
+
+        <!-- Student & Test Details Card -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+          <div>
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Student Name</span>
+            <span id="repStudentName" class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">-</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Roll / Batch ID</span>
+            <span id="repStudentId" class="font-bold font-mono text-indigo-600 dark:text-indigo-400 text-sm sm:text-base">-</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Standard & Target</span>
+            <span id="repStudentGrade" class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">-</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Subject & Chapter</span>
+            <span id="repStudentSubject" class="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base truncate block">-</span>
+          </div>
+        </div>
+
+        <!-- Metrics Dashboard Matrix -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 text-center">
+            <span class="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400 tracking-wider">Overall Accuracy</span>
+            <div id="repMetricAccuracy" class="text-2xl sm:text-3xl font-black text-indigo-700 dark:text-indigo-300 mt-0.5">0%</div>
+            <span id="repAccuracyBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 mt-1 inline-block">Proficiency</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-900/60 text-center">
+            <span class="text-[10px] uppercase font-bold text-emerald-600 dark:text-emerald-400 tracking-wider">Net Score</span>
+            <div id="repMetricNetMarks" class="text-2xl sm:text-3xl font-black text-emerald-700 dark:text-emerald-300 mt-0.5">0 / 0</div>
+            <span id="repNetSchemeLabel" class="text-[10px] text-emerald-600 dark:text-emerald-400 mt-1 inline-block">(+4 correct, -1 wrong)</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-900/60 text-center">
+            <span class="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 tracking-wider">Average Speed</span>
+            <div id="repMetricSpeed" class="text-2xl sm:text-3xl font-black text-amber-700 dark:text-amber-300 mt-0.5">0s</div>
+            <span class="text-[10px] text-amber-600 dark:text-amber-400 mt-1 inline-block">Seconds / Question</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-violet-50/70 dark:bg-violet-950/40 border border-violet-100 dark:border-violet-900/60 text-center">
+            <span class="text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 tracking-wider">Total Duration</span>
+            <div id="repMetricDuration" class="text-2xl sm:text-3xl font-black text-violet-700 dark:text-violet-300 mt-0.5">0m 0s</div>
+            <span class="text-[10px] text-violet-600 dark:text-violet-400 mt-1 inline-block">Total Test Time</span>
+          </div>
+        </div>
+
+        <!-- Diagnostic Breakdown & Cognitive Analysis -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+              <i class="fa-solid fa-chart-pie text-indigo-500"></i>
+              <span>Question Response Audit</span>
+            </h4>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/30">
+                <span class="font-medium text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Correct Answers
+                </span>
+                <span id="repDistCorrect" class="font-bold text-emerald-700 dark:text-emerald-300">0</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-rose-50 dark:bg-rose-950/30">
+                <span class="font-medium text-rose-800 dark:text-rose-300 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Incorrect Submissions
+                </span>
+                <span id="repDistIncorrect" class="font-bold text-rose-700 dark:text-rose-300">0</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-amber-50 dark:bg-amber-950/30">
+                <span class="font-medium text-amber-800 dark:text-amber-300 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Unattempted Questions
+                </span>
+                <span id="repDistSkipped" class="font-bold text-amber-700 dark:text-amber-300">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+              <i class="fa-solid fa-bullseye text-indigo-500"></i>
+              <span>Mayur Sir's Diagnostic Observation</span>
+            </h4>
+            <div class="space-y-2 text-xs">
+              <div>
+                <span class="text-slate-500 font-medium block mb-1">Demonstrated Strengths:</span>
+                <p id="repStrengthsList" class="font-medium text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700">
+                  Formula application and baseline concept recall.
+                </p>
+              </div>
+              <div>
+                <span class="text-slate-500 font-medium block mb-1">Target Areas for Improvement:</span>
+                <p id="repWeaknessList" class="font-medium text-rose-700 dark:text-rose-300 bg-rose-50/60 dark:bg-rose-950/30 p-2.5 rounded-xl border border-rose-200 dark:border-rose-900/40">
+                  Speed-accuracy tradeoff, multi-concept problems and negative-marking risk.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mayur Sir Pedagogical Action Plan -->
+        <div class="p-4 rounded-2xl border border-indigo-200 dark:border-indigo-900/60 bg-gradient-to-r from-amber-50/60 via-indigo-50/60 to-violet-50/60 dark:from-amber-950/30 dark:via-indigo-950/40 dark:to-violet-950/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-indigo-800 dark:text-indigo-300 font-bold text-xs uppercase tracking-wider">
+              <i class="fa-solid fa-user-graduate text-amber-600"></i>
+              <span>Mayur Sir's Personalized Action Plan</span>
+            </div>
+            <button id="aiMentorBtn" onclick="generateAiStudyAdvisory()" class="no-print text-[11px] font-bold px-3 py-1 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 flex items-center gap-1 transition">
+              <i class="fa-solid fa-arrows-rotate"></i>
+              <span>Refresh AI Guidance</span>
+            </button>
+          </div>
+          <div id="aiAdvisoryContent" class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed pt-1">
+            Student should review the wrong choices noted in this test, practice higher-difficulty questions in this chapter, and eliminate negative marking errors before the next exam.
+          </div>
+        </div>
+
+        <!-- Question Log Table -->
+        <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-4">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-indigo-500"></i>
+            <span>Itemized Response Audit (All Questions)</span>
+          </h4>
+          <div class="overflow-x-auto max-h-72 overflow-y-auto custom-scroll">
+            <table class="w-full text-xs text-left">
+              <thead class="text-[11px] uppercase bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold sticky top-0">
+                <tr>
+                  <th class="p-2.5 rounded-l-lg">Q#</th>
+                  <th class="p-2.5">Topic Concept</th>
+                  <th class="p-2.5 text-center">Selected</th>
+                  <th class="p-2.5 text-center">Correct</th>
+                  <th class="p-2.5 text-center">Status</th>
+                  <th class="p-2.5 rounded-r-lg text-right">Marks</th>
+                </tr>
+              </thead>
+              <tbody id="repTableBody" class="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Signature Verification Line -->
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div>
+            <span class="font-bold block text-slate-700 dark:text-slate-300">The Physics Room • Mayur Sir</span>
+            <span>Ref: <code id="repSignatureId" class="font-mono text-amber-600 dark:text-amber-400">TPR-EXAM-99214</code></span>
+          </div>
+          <div class="text-right">
+            <div class="w-36 border-b border-slate-400 dark:border-slate-600 mb-1"></div>
+            <span class="text-[11px] font-semibold text-slate-600 dark:text-slate-400">Mayur Sir (Authorized Sign)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="no-print pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-end gap-3">
+        <button type="button" onclick="closeStudentReportModal()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          Close
+        </button>
+        <button type="button" onclick="printStudentReportDirectly()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-amber-600 hover:from-indigo-500 hover:to-amber-500 text-white text-sm font-bold shadow-md shadow-indigo-600/20 flex items-center gap-2 transition">
+          <i class="fa-solid fa-print"></i>
+          <span>Print / Save as PDF</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Submission Confirmation Modal -->
+  <div id="confirmModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
+      <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold text-slate-900 dark:text-white">Submit Exam?</h4>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mt-1" id="confirmModalText">
+          Are you sure you want to finish the exam and view results?
+        </p>
+      </div>
+      <div class="flex items-center justify-end gap-3 pt-2">
+        <button type="button" onclick="closeConfirmModal(false)" class="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          Continue Test
+        </button>
+        <button type="button" onclick="closeConfirmModal(true)" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold shadow-md shadow-indigo-600/20 transition">
+          Submit & View Analysis
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      examLevel: 'jee',
+      grade: '11',
+      subject: 'physics',
+      chapter: '',
+      questionCount: 25,
+      isAiMode: false,
+      studentName: 'Yash Patel',
+      studentId: 'TPR-2026-BATCH-A',
+      questions: [],
+      currentIndex: 0,
+      userAnswers: {},
+      bookmarked: new Set(),
+      timerInterval: null,
+      timerSeconds: 0,
+      examSubmitted: false
+    };
+
+    const EXAM_LEVEL_CONFIG = {
+      jee: {
+        title: "JEE Main & Advanced",
+        badge: "JEE Main",
+        marksCorrect: 4,
+        marksWrong: -1,
+        desc: "+4 for Correct, -1 for Incorrect",
+        suggestedCount: 25
+      },
+      neet: {
+        title: "NEET-UG Medical Entrance",
+        badge: "NEET-UG",
+        marksCorrect: 4,
+        marksWrong: -1,
+        desc: "+4 for Correct, -1 for Incorrect",
+        suggestedCount: 45
+      },
+      gujcet: {
+        title: "GUJCET Gujarat Common Entrance Test",
+        badge: "GUJCET",
+        marksCorrect: 1,
+        marksWrong: -0.25,
+        desc: "+1 for Correct, -0.25 for Incorrect (40 MCQs)",
+        suggestedCount: 40
+      },
+      board: {
+        title: "Board Standard MCQs",
+        badge: "Board Exam",
+        marksCorrect: 1,
+        marksWrong: 0,
+        desc: "+1 for Correct, 0 for Incorrect (No Negative Marking)",
+        suggestedCount: 20
+      }
+    };
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        sessionStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        sessionStorage.setItem('theme', 'dark');
+      }
+    }
+
+    function selectExamLevel(levelKey) {
+      state.examLevel = levelKey;
+      const conf = EXAM_LEVEL_CONFIG[levelKey];
+
+      document.querySelectorAll('.exam-level-tab').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'bg-indigo-50/70', 'dark:bg-indigo-950/40');
+        btn.classList.add('border-slate-200', 'dark:border-slate-800');
+      });
+
+      const activeBtn = document.getElementById(`examLevelBtn-${levelKey}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-indigo-600', 'bg-indigo-50/70', 'dark:bg-indigo-950/40');
+        activeBtn.classList.remove('border-slate-200', 'dark:border-slate-800');
+      }
+
+      document.getElementById('examMarkingSchemeHint').textContent = `Scoring: ${conf.desc}`;
+      document.getElementById('currentLevelDisplayBadge').textContent = `${conf.title} Level`;
+      document.getElementById('navExamTargetLabel').textContent = conf.badge;
+
+      if (levelKey === 'gujcet') {
+        setQuestionCount(40);
+      } else if (levelKey === 'neet') {
+        setQuestionCount(45);
+      } else if (levelKey === 'jee') {
+        setQuestionCount(25);
+      }
+    }
+
+    const CHAPTERS_DATA = {
+      "11": {
+        "physics": [
+          "Units and Measurements",
+          "Motion in a Straight Line",
+          "Motion in a Plane (Vectors & Projectile)",
+          "Laws of Motion & Friction",
+          "Work, Energy and Power",
+          "System of Particles and Rotational Motion",
+          "Gravitation",
+          "Mechanical Properties of Solids & Fluids",
+          "Thermodynamics & Kinetic Theory of Gases",
+          "Oscillations and Simple Harmonic Motion",
+          "Waves and Acoustics"
+        ],
+        "chemistry": [
+          "Some Basic Concepts of Chemistry (Mole Concept)",
+          "Structure of Atom",
+          "Classification of Elements & Periodicity",
+          "Chemical Bonding and Molecular Structure",
+          "Chemical Thermodynamics",
+          "Equilibrium (Physical & Chemical)",
+          "Redox Reactions",
+          "Organic Chemistry: Basic Principles & Techniques",
+          "Hydrocarbons (Alkanes, Alkenes, Alkynes, Aromatic)"
+        ],
+        "biology": [
+          "The Living World & Biological Classification",
+          "Plant Kingdom",
+          "Animal Kingdom",
+          "Morphology & Anatomy of Flowering Plants",
+          "Cell: The Unit of Life & Cell Cycle",
+          "Biomolecules",
+          "Photosynthesis in Higher Plants",
+          "Respiration in Plants & Plant Growth",
+          "Breathing and Exchange of Gases",
+          "Body Fluids, Circulation and Excretion",
+          "Locomotion, Movement & Neural Control"
+        ],
+        "math": [
+          "Sets, Relations and Functions",
+          "Trigonometric Functions & Equations",
+          "Complex Numbers and Quadratic Equations",
+          "Linear Inequalities & Permutations/Combinations",
+          "Binomial Theorem & Sequences and Series",
+          "Straight Lines and Conic Sections",
+          "Introduction to 3D Geometry",
+          "Limits and Derivatives",
+          "Statistics and Probability"
+        ]
+      },
+      "12": {
+        "physics": [
+          "Electric Charges and Fields",
+          "Electrostatic Potential and Capacitance",
+          "Current Electricity",
+          "Moving Charges and Magnetism",
+          "Magnetism and Matter",
+          "Electromagnetic Induction",
+          "Alternating Current (AC Circuits)",
+          "Electromagnetic Waves",
+          "Ray Optics and Optical Instruments",
+          "Wave Optics & Wave Particle Duality",
+          "Atoms, Nuclei & Semiconductor Devices"
+        ],
+        "chemistry": [
+          "Solutions & Colligative Properties",
+          "Electrochemistry",
+          "Chemical Kinetics",
+          "The d- and f-Block Elements",
+          "Coordination Compounds",
+          "Haloalkanes and Haloarenes",
+          "Alcohols, Phenols and Ethers",
+          "Aldehydes, Ketones and Carboxylic Acids",
+          "Amines (Organic Nitrogen Compounds)",
+          "Biomolecules (Carbohydrates, Proteins, Nucleic Acids)"
+        ],
+        "biology": [
+          "Sexual Reproduction in Flowering Plants",
+          "Human Reproduction & Reproductive Health",
+          "Principles of Inheritance and Variation (Genetics)",
+          "Molecular Basis of Inheritance (DNA & RNA)",
+          "Evolution",
+          "Human Health and Disease",
+          "Microbes in Human Welfare",
+          "Biotechnology: Principles and Processes",
+          "Biotechnology and its Applications",
+          "Organisms and Populations",
+          "Ecosystem & Biodiversity Conservation"
+        ],
+        "math": [
+          "Relations and Functions & Inverse Trigonometry",
+          "Matrices and Determinants",
+          "Continuity and Differentiability",
+          "Application of Derivatives (Tangents, Maxima-Minima)",
+          "Integrals (Definite & Indefinite)",
+          "Application of Integrals (Area under curves)",
+          "Differential Equations",
+          "Vector Algebra",
+          "Three Dimensional Geometry (Lines & Planes)",
+          "Linear Programming & Probability Distribution"
+        ]
+      }
+    };
+
+    const QUESTION_BANK = {
+      "11_physics": [
+        {
+          question: "A ball is thrown vertically upward with a speed of 19.6 m/s. Taking g = 9.8 m/s², what is the maximum height attained by the ball?",
+          options: ["9.8 m", "19.6 m", "39.2 m", "4.9 m"],
+          correct: 1,
+          explanation: "At max height v = 0. Using v² = u² - 2gh: 0 = (19.6)² - 2(9.8)h => h = (19.6)² / (19.6) = 19.6 meters.",
+          optionDebunk: [
+            "9.8 m is the height after only 0.5s of flight.",
+            "19.6 m is correct from h = u² / (2g) = 19.6 m.",
+            "39.2 m forgets to divide by 2 in the denominator.",
+            "4.9 m is the distance fallen from rest in 1 second."
+          ]
+        },
+        {
+          question: "Which of the following physical quantities is dimensionless?",
+          options: ["Gravitational Constant (G)", "Refractive index", "Planck's constant (h)", "Surface tension"],
+          correct: 1,
+          explanation: "Refractive index is the ratio of velocities (c/v). Being a ratio of identical dimensions, it is dimensionless [M⁰L⁰T⁰].",
+          optionDebunk: [
+            "G has dimensions [M⁻¹ L³ T⁻²].",
+            "Refractive index is dimensionless (ratio of speeds).",
+            "Planck's constant has dimensions [M L² T⁻¹].",
+            "Surface tension has dimensions [M L⁰ T⁻²]."
+          ]
+        },
+        {
+          question: "When a bus suddenly takes a sharp turn, passengers are thrown outwards. This is due to:",
+          options: ["Inertia of rest", "Inertia of motion", "Inertia of direction", "Conservation of momentum"],
+          correct: 2,
+          explanation: "Due to inertia of direction, a body tends to preserve its straight-line path unless an external centripetal force acts on it.",
+          optionDebunk: [
+            "Inertia of rest opposes starting from stationary state.",
+            "Inertia of motion opposes changes in longitudinal speed.",
+            "Inertia of direction specifically opposes changes in direction.",
+            "Conservation of momentum describes isolated collision systems."
+          ]
+        },
+        {
+          question: "In Simple Harmonic Motion (SHM), where does the restoring force reach its maximum magnitude?",
+          options: ["At the mean position", "At the extreme positions", "Halfway between mean and extreme", "It remains constant everywhere"],
+          correct: 1,
+          explanation: "In SHM, restoring force F = -kx. The restoring force is directly proportional to displacement and maximum at the extreme positions x = ±A.",
+          optionDebunk: [
+            "At mean position x = 0, restoring force is zero.",
+            "At extremes x = ±A, displacement is maximum so restoring force is maximum.",
+            "Halfway has only half of the peak restoring force.",
+            "Restoring force varies linearly with displacement, not constant."
+          ]
+        },
+        {
+          question: "An ideal gas undergoes an isothermal expansion. What is its change in internal energy (ΔU)?",
+          options: ["ΔU > 0", "ΔU < 0", "ΔU = 0", "ΔU depends on atmospheric pressure"],
+          correct: 2,
+          explanation: "For an ideal gas, internal energy depends solely on temperature: U = nCvT. In an isothermal process, ΔT = 0, hence ΔU = 0.",
+          optionDebunk: [
+            "ΔU > 0 occurs when temperature increases.",
+            "ΔU < 0 occurs when temperature decreases.",
+            "ΔU = 0 is correct because temperature is constant.",
+            "Internal energy of an ideal gas is purely a function of absolute temperature."
+          ]
+        },
+        {
+          question: "A projectile is launched at θ = 45° with initial kinetic energy K. What is its kinetic energy at the highest point?",
+          options: ["K / 4", "K / 2", "K / √2", "Zero"],
+          correct: 1,
+          explanation: "At highest point, vy = 0 and vx = v0 cos 45° = v0 / √2. Kinetic energy K' = 1/2 m (vx)² = 1/2 m (v0² / 2) = K / 2.",
+          optionDebunk: [
+            "K / 4 occurs for a 60° launch angle.",
+            "K / 2 is correct since cos²(45°) = 1/2.",
+            "K / √2 forgets that kinetic energy is proportional to velocity squared.",
+            "Zero only occurs if fired strictly vertically."
+          ]
+        },
+        {
+          question: "What is the escape velocity from Earth's surface (Radius R, Mass M, acceleration g)?",
+          options: ["√(gR)", "√(2gR)", "2√(gR)", "√(gR / 2)"],
+          correct: 1,
+          explanation: "Equating total mechanical energy to zero: 1/2 m ve² - GMm/R = 0 => ve = √(2GM/R) = √(2gR) ≈ 11.2 km/s.",
+          optionDebunk: [
+            "√(gR) is the orbital velocity close to surface.",
+            "√(2gR) is the exact escape velocity.",
+            "2√(gR) exceeds escape speed by √2.",
+            "√(gR / 2) is insufficient to escape gravity."
+          ]
+        },
+        {
+          question: "The moment of inertia of a uniform thin ring of mass M and radius R about its central perpendicular axis is:",
+          options: ["1/2 M R²", "M R²", "2/5 M R²", "1/4 M R²"],
+          correct: 1,
+          explanation: "Every point on the ring is at perpendicular distance R from the central axis. Therefore, I = Σ m R² = M R².",
+          optionDebunk: [
+            "1/2 M R² is for a solid circular disc.",
+            "M R² is correct for a circular thin ring.",
+            "2/5 M R² is for a solid sphere.",
+            "1/4 M R² is for a disc about its diameter."
+          ]
+        },
+        {
+          question: "A force F = (2i + 3j + 4k) N acts on a body displacing it by d = (3i + 0j + 2k) m. The work done is:",
+          options: ["6 Joules", "14 Joules", "10 Joules", "18 Joules"],
+          correct: 1,
+          explanation: "Work W = F · d = (2×3) + (3×0) + (4×2) = 6 + 0 + 8 = 14 Joules.",
+          optionDebunk: [
+            "6 Joules is only the x-component product.",
+            "14 Joules is the correct scalar dot product: 6 + 0 + 8 = 14 J.",
+            "10 Joules is an arithmetic error.",
+            "18 Joules adds vector components incorrectly."
+          ]
+        },
+        {
+          question: "A pendulum of length L has period T. If length is increased by 21%, its time period increases by approximately:",
+          options: ["10%", "21%", "44%", "5%"],
+          correct: 0,
+          explanation: "T = 2π √(L/g). If L' = 1.21 L, T' = √(1.21) T = 1.10 T, which is a 10% increase.",
+          optionDebunk: [
+            "10% is correct: √1.21 = 1.10 (+10%).",
+            "21% ignores the square root dependency.",
+            "44% squares the 21% factor.",
+            "5% erroneously divides by 4."
+          ]
+        }
+      ],
+      "11_chemistry": [
+        {
+          question: "What is the total number of orbitals associated with the principal quantum number n = 3?",
+          options: ["3", "6", "9", "18"],
+          correct: 2,
+          explanation: "Total orbitals for shell n is n². For n = 3, orbitals = 3² = 9 (one 3s, three 3p, five 3d: 1 + 3 + 5 = 9).",
+          optionDebunk: [
+            "3 is the number of subshells (s, p, d).",
+            "6 is electron capacity of p subshell.",
+            "9 is correct: 1(s) + 3(p) + 5(d) = 9 orbitals.",
+            "18 is maximum electron capacity (2n²), not orbital count."
+          ]
+        },
+        {
+          question: "Which of the following molecules has a linear geometry according to VSEPR theory?",
+          options: ["H2O", "SO2", "BeCl2", "NH3"],
+          correct: 2,
+          explanation: "BeCl2 has 2 bond pairs and 0 lone pairs on the central Be atom with sp hybridization, producing a linear 180° geometry.",
+          optionDebunk: [
+            "H2O is bent (~104.5°) due to 2 lone pairs.",
+            "SO2 is bent (~119°) due to 1 lone pair.",
+            "BeCl2 has no lone pairs on Be, yielding a linear geometry.",
+            "NH3 is trigonal pyramidal (~107°)."
+          ]
+        },
+        {
+          question: "What is the oxidation number of Chromium (Cr) in potassium dichromate (K2Cr2O7)?",
+          options: ["+3", "+6", "+7", "+4"],
+          correct: 1,
+          explanation: "2(+1) + 2(Cr) + 7(-2) = 0 => 2 + 2x - 14 = 0 => 2x = 12 => x = +6.",
+          optionDebunk: [
+            "+3 is the reduced form in Cr³⁺.",
+            "+6 is correct: 2 + 2x - 14 = 0 => x = +6.",
+            "+7 is oxidation state of Mn in KMnO4.",
+            "+4 is not the state of Cr in dichromate."
+          ]
+        },
+        {
+          question: "Which carbocation is the most stable?",
+          options: ["Methyl (CH3⁺)", "Primary (CH3-CH2⁺)", "Secondary ((CH3)2CH⁺)", "Tertiary ((CH3)3C⁺)"],
+          correct: 3,
+          explanation: "Tertiary carbocation ((CH3)3C⁺) has 9 hyperconjugative alpha-hydrogens and 3 electron-donating (+I) alkyl groups.",
+          optionDebunk: [
+            "Methyl has zero hyperconjugation (least stable).",
+            "Primary has only 3 alpha-hydrogens.",
+            "Secondary has 6 alpha-hydrogens.",
+            "Tertiary has 9 alpha-hydrogens, conferring maximum stability."
+          ]
+        },
+        {
+          question: "How many moles of gas are present in 5.6 Liters of CO2 at STP?",
+          options: ["0.25 mol", "0.50 mol", "1.00 mol", "2.00 mol"],
+          correct: 0,
+          explanation: "At STP, 1 mole occupies 22.4 L. Moles n = 5.6 / 22.4 = 0.25 mol.",
+          optionDebunk: [
+            "0.25 mol is correct: 5.6 / 22.4 = 1/4 mole.",
+            "0.50 mol is 11.2 Liters.",
+            "1.00 mol is 22.4 Liters.",
+            "2.00 mol is 44.8 Liters."
+          ]
+        }
+      ],
+      "11_biology": [
+        {
+          question: "Which organelle is the site of cellular respiration and ATP generation?",
+          options: ["Golgi apparatus", "Ribosome", "Mitochondria", "Lysosome"],
+          correct: 2,
+          explanation: "Mitochondria synthesize ATP through the Krebs cycle and oxidative phosphorylation on inner cristae.",
+          optionDebunk: [
+            "Golgi processes and packages proteins.",
+            "Ribosomes translate mRNA into protein.",
+            "Mitochondria are the powerhouses generating ATP.",
+            "Lysosomes contain hydrolytic enzymes."
+          ]
+        },
+        {
+          question: "During which phase of Meiosis I does crossing over take place?",
+          options: ["Leptotene", "Zygotene", "Pachytene", "Diplotene"],
+          correct: 2,
+          explanation: "Crossing over occurs between non-sister chromatids of homologous chromosomes in Pachytene.",
+          optionDebunk: [
+            "Leptotene involves chromatin condensation.",
+            "Zygotene involves chromosome synapsis.",
+            "Pachytene is where crossing over and recombination occur.",
+            "Diplotene features dissolution of synaptonemal complex."
+          ]
+        },
+        {
+          question: "What is the normal resting blood pressure of a healthy adult human?",
+          options: ["100/60 mmHg", "120/80 mmHg", "140/90 mmHg", "80/120 mmHg"],
+          correct: 1,
+          explanation: "120 mmHg is systolic pressure during ventricular contraction, and 80 mmHg is diastolic resting pressure.",
+          optionDebunk: [
+            "100/60 mmHg indicates hypotension.",
+            "120/80 mmHg is normal baseline.",
+            "140/90 mmHg qualifies as stage-1 hypertension.",
+            "80/120 mmHg reverses systolic and diastolic values."
+          ]
+        }
+      ],
+      "11_math": [
+        {
+          question: "What is the value of lim(x → 0) [sin(x) / x]?",
+          options: ["0", "1", "Infinity", "Undefined"],
+          correct: 1,
+          explanation: "By the fundamental trigonometric limit theorem, lim(x → 0) sin(x)/x = 1.",
+          optionDebunk: [
+            "0 is sin(0), but this 0/0 form evaluates to 1.",
+            "1 is the standard trigonometric limit.",
+            "Infinity is incorrect.",
+            "The limit is well-defined and equals 1."
+          ]
+        },
+        {
+          question: "What is the eccentricity (e) of a parabola?",
+          options: ["e = 0", "0 < e < 1", "e = 1", "e > 1"],
+          correct: 2,
+          explanation: "By definition, a parabola has eccentricity e = 1.",
+          optionDebunk: [
+            "e = 0 is a circle.",
+            "0 < e < 1 is an ellipse.",
+            "e = 1 is a parabola.",
+            "e > 1 is a hyperbola."
+          ]
+        },
+        {
+          question: "What is the derivative of f(x) = tan(x) with respect to x?",
+          options: ["sec(x)", "sec²(x)", "-cosec²(x)", "sec(x)tan(x)"],
+          correct: 1,
+          explanation: "d/dx [tan(x)] = sec²(x).",
+          optionDebunk: [
+            "sec(x) is not the derivative.",
+            "sec²(x) is correct.",
+            "-cosec²(x) is derivative of cot(x).",
+            "sec(x)tan(x) is derivative of sec(x)."
+          ]
+        }
+      ],
+      "12_physics": [
+        {
+          question: "What is the SI unit of electric flux?",
+          options: ["N/C", "V·m (Volt-meter)", "Tesla", "Weber"],
+          correct: 1,
+          explanation: "Electric flux Φ = E · A = (V/m) × m² = V·m (or N·m²/C).",
+          optionDebunk: [
+            "N/C is the unit of Electric Field intensity E.",
+            "V·m is the SI unit for electric flux.",
+            "Tesla is magnetic flux density.",
+            "Weber is magnetic flux."
+          ]
+        },
+        {
+          question: "According to Lenz's law, the direction of an induced electromotive force (EMF) is such that it:",
+          options: ["Aids the change producing it", "Opposes the change in magnetic flux producing it", "Always flows clockwise", "Increases external magnetic field"],
+          correct: 1,
+          explanation: "Lenz's law is a consequence of conservation of energy: induced EMF always opposes the flux variation creating it.",
+          optionDebunk: [
+            "Aiding the flux change would violate conservation of energy.",
+            "Opposing the flux change is the exact definition of Lenz's law.",
+            "Direction depends on whether flux increases or decreases.",
+            "It opposes change rather than systematically increasing field."
+          ]
+        },
+        {
+          question: "In an AC circuit containing pure inductance L, what is the phase difference between current and voltage?",
+          options: ["Current leads voltage by 90°", "Current lags voltage by 90° (π/2)", "Current and voltage are in phase", "Current lags voltage by 180°"],
+          correct: 1,
+          explanation: "In a pure inductor, current lags voltage by π/2 radians (90°).",
+          optionDebunk: [
+            "Current leads voltage in a purely capacitive circuit.",
+            "Current lags voltage by 90° in a purely inductive circuit.",
+            "In phase applies to a purely resistive circuit.",
+            "180° phase lag does not occur in single reactive elements."
+          ]
+        },
+        {
+          question: "What happens to fringe width (β) in Young's Double Slit Experiment if immersed in water (μ = 1.33)?",
+          options: ["Fringe width increases", "Fringe width decreases", "Fringe width remains unchanged", "Fringes disappear completely"],
+          correct: 1,
+          explanation: "β = λD / d. In water, λ' = λ/μ. Since wavelength decreases, fringe width β decreases proportionally.",
+          optionDebunk: [
+            "Fringe width would only increase if wavelength increased.",
+            "Fringe width decreases because β' = β / μ.",
+            "Fringe width is directly dependent on medium wavelength.",
+            "Fringes remain sharp as long as coherence is preserved."
+          ]
+        },
+        {
+          question: "In an n-type semiconductor, which charge carriers are majority carriers?",
+          options: ["Holes", "Free Electrons", "Positrons", "Neutral atoms"],
+          correct: 1,
+          explanation: "n-type semiconductors are doped with pentavalent donors (e.g. Phosphorus), making electrons the majority carriers.",
+          optionDebunk: [
+            "Holes are majority carriers in p-type semiconductors.",
+            "Free electrons are majority carriers in n-type semiconductors.",
+            "Positrons are antimatter particles.",
+            "Atoms form the crystalline lattice."
+          ]
+        }
+      ],
+      "12_chemistry": [
+        {
+          question: "Which colligative property is preferred for measuring the molar mass of biomolecules (proteins)?",
+          options: ["Relative lowering of vapor pressure", "Elevation of boiling point", "Depression of freezing point", "Osmotic pressure"],
+          correct: 3,
+          explanation: "Osmotic pressure is measured at room temperature and exhibits readable pressure changes even in very dilute solutions without denaturing proteins.",
+          optionDebunk: [
+            "Vapor pressure changes are too minute for dilute macromolecules.",
+            "Boiling point elevation can denature proteins.",
+            "Freezing point depression yields unmeasurably small temperature drops.",
+            "Osmotic pressure provides measurable hydrostatic heads at ambient temperature."
+          ]
+        },
+        {
+          question: "For a first-order chemical reaction, what is the formula for half-life (t1/2)?",
+          options: ["t1/2 = 0.693 / k", "t1/2 = [A]0 / (2k)", "t1/2 = 1 / (k[A]0)", "t1/2 = 2k / 0.693"],
+          correct: 0,
+          explanation: "For first order, k = (2.303/t) log([A]0/[A]). At t1/2, [A] = [A]0/2, giving t1/2 = ln(2)/k = 0.693 / k.",
+          optionDebunk: [
+            "t1/2 = 0.693 / k is the first-order half-life formula.",
+            "[A]0 / (2k) is for zero-order reactions.",
+            "1 / (k[A]0) is for second-order reactions.",
+            "2k / 0.693 inverts the rate constant relationship."
+          ]
+        },
+        {
+          question: "Which transition metal ion is colorless in aqueous solution?",
+          options: ["Cu²⁺", "Fe³⁺", "Sc³⁺", "Ni²⁺"],
+          correct: 2,
+          explanation: "Sc³⁺ has electron configuration [Ar] 3d⁰. With an empty d-subshell, no d-d electron transitions can occur, rendering it colorless.",
+          optionDebunk: [
+            "Cu²⁺ has 3d⁹ configuration and is deep blue.",
+            "Fe³⁺ has 3d⁵ configuration and is yellow-brown.",
+            "Sc³⁺ has 3d⁰ configuration with no d-electrons, hence colorless.",
+            "Ni²⁺ has 3d⁸ configuration and is green."
+          ]
+        }
+      ],
+      "12_biology": [
+        {
+          question: "In human genetics, what phenotypic ratio is obtained in a standard Mendelian dihybrid cross F2 generation?",
+          options: ["3 : 1", "9 : 3 : 3 : 1", "1 : 2 : 1", "9 : 7"],
+          correct: 1,
+          explanation: "Independent assortment of two allele pairs gives the classic 9:3:3:1 phenotypic distribution in F2.",
+          optionDebunk: [
+            "3 : 1 is the monohybrid phenotypic ratio.",
+            "9 : 3 : 3 : 1 is the dihybrid cross ratio.",
+            "1 : 2 : 1 is the monohybrid genotypic ratio.",
+            "9 : 7 is complementary gene interaction."
+          ]
+        },
+        {
+          question: "Which antibody isotype is predominantly transferred to an infant through maternal colostrum?",
+          options: ["IgG", "IgA", "IgE", "IgM"],
+          correct: 1,
+          explanation: "Secretory IgA is abundant in early breast milk (colostrum) and coats infant mucosal surfaces.",
+          optionDebunk: [
+            "IgG crosses the placenta during pregnancy.",
+            "IgA is the principal mucosal secretory antibody in colostrum.",
+            "IgE mediates allergic responses.",
+            "IgM is the initial pentameric antibody."
+          ]
+        }
+      ],
+      "12_math": [
+        {
+          question: "What is the value of ∫ [1 / (1 + x²)] dx?",
+          options: ["ln|1 + x²| + C", "tan⁻¹(x) + C", "sin⁻¹(x) + C", "2x / (1 + x²) + C"],
+          correct: 1,
+          explanation: "The derivative of arctan(x) is 1 / (1 + x²). Therefore ∫ dx / (1 + x²) = tan⁻¹(x) + C.",
+          optionDebunk: [
+            "ln|1 + x²| would require 2x in numerator.",
+            "tan⁻¹(x) + C is correct.",
+            "sin⁻¹(x) + C corresponds to 1/√(1-x²).",
+            "2x / (1 + x²) is the derivative of ln(1+x²)."
+          ]
+        },
+        {
+          question: "If matrix A is an invertible square matrix, det(A⁻¹) is equal to:",
+          options: ["det(A)", "1 / det(A)", "n · det(A)", "(det(A))ⁿ"],
+          correct: 1,
+          explanation: "Since A · A⁻¹ = I, det(A) · det(A⁻¹) = 1 => det(A⁻¹) = 1 / det(A).",
+          optionDebunk: [
+            "det(A) does not equal its inverse determinant.",
+            "1 / det(A) is derived from det(A) · det(A⁻¹) = 1.",
+            "n · det(A) confuses scalar multiplication.",
+            "(det(A))ⁿ is incorrect."
+          ]
+        }
+      ]
+    };
+
+    function createProceduralUniqueQuestion(subj, seed, examName) {
+      if (subj === 'physics') {
+        const speedList = [12, 16, 20, 24, 28, 32, 36, 40, 48];
+        const u = speedList[seed % speedList.length];
+        const g = 10;
+        const h = (u * u) / (2 * g);
+        const tFlight = (2 * u) / g;
+
+        if (seed % 4 === 0) {
+          return {
+            question: `A ball is projected vertically upward from the ground with an initial velocity of ${u} m/s (assume g = 10 m/s²). What is the maximum vertical height achieved?`,
+            options: [`${(u * u) / g} m`, `${h} m`, `${h / 2} m`, `${(u * u) / (4 * g)} m`],
+            correct: 1,
+            explanation: `At peak height v = 0. Using v² = u² - 2gh => h = u² / (2g) = (${u})² / 20 = ${h} meters.`,
+            optionDebunk: [
+              `${(u * u) / g} m forgets the factor 2 in denominator.`,
+              `${h} m is correct: h = u² / (2g) = ${u * u} / 20 = ${h} m.`,
+              `${h / 2} m halves the actual maximum height.`,
+              `${(u * u) / (4 * g)} m incorrectly divides by 4g.`
+            ]
+          };
+        } else if (seed % 4 === 1) {
+          const masses = [3, 4, 6, 8, 10, 12];
+          const m = masses[seed % masses.length];
+          const accels = [2, 3, 4, 5, 6];
+          const a = accels[seed % accels.length];
+          const f = m * a;
+          return {
+            question: `A constant horizontal net force acts on a block of mass ${m} kg resting on a frictionless surface, producing an acceleration of ${a} m/s². What is the applied force?`,
+            options: [`${f + 6} N`, `${f} N`, `${Math.round(f / 2)} N`, `${f * 2} N`],
+            correct: 1,
+            explanation: `According to Newton's Second Law, net force F = m · a = ${m} kg × ${a} m/s² = ${f} N.`,
+            optionDebunk: [
+              `${f + 6} N adds an arbitrary offset.`,
+              `${f} N is correct from F = ma = ${m} × ${a} = ${f} N.`,
+              `${Math.round(f / 2)} N erroneously divides by 2.`,
+              `${f * 2} N doubles the required net force.`
+            ]
+          };
+        } else if (seed % 4 === 2) {
+          const rList = [2, 4, 5, 8, 10];
+          const r = rList[seed % rList.length];
+          const vList = [4, 6, 8, 10, 12];
+          const v = vList[seed % vList.length];
+          const ac = (v * v) / r;
+          return {
+            question: `A point mass traverses a circular trajectory of radius ${r} m with a constant speed of ${v} m/s. The centripetal acceleration acting on it is:`,
+            options: [`${ac} m/s²`, `${ac * 2} m/s²`, `${Math.round(ac / 2)} m/s²`, `${v * r} m/s²`],
+            correct: 0,
+            explanation: `Centripetal acceleration is directed radially inward with magnitude a_c = v² / r = (${v})² / ${r} = ${ac} m/s².`,
+            optionDebunk: [
+              `${ac} m/s² is correct from a_c = v² / r = ${v * v} / ${r} = ${ac} m/s².`,
+              `${ac * 2} m/s² doubles the true value.`,
+              `${Math.round(ac / 2)} m/s² divides by 2.`,
+              `${v * r} m/s² calculates v × r instead of v² / r.`
+            ]
+          };
+        } else {
+          const capList = [4, 6, 8, 10, 12];
+          const c = capList[seed % capList.length];
+          const voltList = [10, 20, 30, 40];
+          const v = voltList[seed % voltList.length];
+          const energy = 0.5 * c * 1e-6 * v * v;
+          return {
+            question: `A capacitor of capacitance ${c} μF is connected across a ${v} V DC battery. The electrostatic energy stored in the capacitor is:`,
+            options: [`${(energy * 1000).toFixed(2)} mJ`, `${(energy * 2000).toFixed(2)} mJ`, `${(energy * 500).toFixed(2)} mJ`, `${(c * v).toFixed(2)} mJ`],
+            correct: 0,
+            explanation: `Energy U = 1/2 C V² = 0.5 × (${c} × 10⁻⁶ F) × (${v} V)² = ${(energy * 1000).toFixed(2)} mJ.`,
+            optionDebunk: [
+              `${(energy * 1000).toFixed(2)} mJ is correct from U = 1/2 C V².`,
+              `${(energy * 2000).toFixed(2)} mJ forgets the 1/2 factor.`,
+              `${(energy * 500).toFixed(2)} mJ divides by 4.`,
+              `${(c * v).toFixed(2)} mJ is the charge Q = CV, not energy.`
+            ]
+          };
+        }
+      } else if (subj === 'math') {
+        const aCoeff = (seed * 2 + 1);
+        const bCoeff = (seed * 3 + 2);
+        const xVal = (seed % 3) + 1;
+        const derivAtX = 2 * aCoeff * xVal + bCoeff;
+        return {
+          question: `Evaluate the derivative of the polynomial f(x) = ${aCoeff}x² + ${bCoeff}x - 5 at x = ${xVal}:`,
+          options: [`${derivAtX}`, `${2 * aCoeff * xVal}`, `${derivAtX + 4}`, `${bCoeff}`],
+          correct: 0,
+          explanation: `f'(x) = 2(${aCoeff})x + ${bCoeff}. Substituting x = ${xVal}: f'(${xVal}) = 2(${aCoeff})(${xVal}) + ${bCoeff} = ${derivAtX}.`,
+          optionDebunk: [
+            `${derivAtX} is correct: f'(${xVal}) = 2(${aCoeff})(${xVal}) + ${bCoeff} = ${derivAtX}.`,
+            `${2 * aCoeff * xVal} omits the derivative of the linear term.`,
+            `${derivAtX + 4} includes an extra numerical offset.`,
+            `${bCoeff} neglects the quadratic term.`
+          ]
+        };
+      } else if (subj === 'chemistry') {
+        const liters = [5.6, 11.2, 22.4, 33.6, 44.8, 67.2];
+        const vol = liters[seed % liters.length];
+        const moles = (vol / 22.4).toFixed(2);
+        return {
+          question: `Calculate the number of moles of an ideal gas occupying a volume of ${vol} Liters at STP:`,
+          options: [`${(parseFloat(moles) * 2).toFixed(2)} mol`, `${moles} mol`, `${(parseFloat(moles) / 2).toFixed(2)} mol`, `${(parseFloat(moles) + 1).toFixed(2)} mol`],
+          correct: 1,
+          explanation: `At STP, 1 mole occupies 22.4 L. Number of moles n = Volume / 22.4 L = ${vol} / 22.4 = ${moles} mol.`,
+          optionDebunk: [
+            `${(parseFloat(moles) * 2).toFixed(2)} mol doubles the required moles.`,
+            `${moles} mol is correct from n = V / 22.4.`,
+            `${(parseFloat(moles) / 2).toFixed(2)} mol halves the molar count.`,
+            `${(parseFloat(moles) + 1).toFixed(2)} mol adds an extraneous mole.`
+          ]
+        };
+      } else {
+        const bioTopics = [
+          { q: "Which organelle contains hydrolytic acid enzymes capable of digesting macromolecules?", c: "Lysosome", w: ["Ribosome", "Endoplasmic reticulum", "Peroxisome"] },
+          { q: "During which phase of mitosis do chromosomes align uniformly along the equatorial plate?", c: "Metaphase", w: ["Anaphase", "Telophase", "Prophase"] },
+          { q: "The light-dependent reactions of photosynthesis take place specifically in the:", c: "Thylakoid membranes (Grana)", w: ["Stroma matrix", "Outer chloroplast membrane", "Mitochondrial matrix"] },
+          { q: "Which enzyme is primarily responsible for unwinding double-stranded DNA during replication?", c: "DNA Helicase", w: ["DNA Ligase", "DNA Polymerase III", "RNA Primase"] }
+        ];
+        const picked = bioTopics[seed % bioTopics.length];
+        return {
+          question: `[Biology Drill Q${seed + 1}] ${picked.q}`,
+          options: [picked.w[0], picked.c, picked.w[1], picked.w[2]],
+          correct: 1,
+          explanation: `The accurate biological structure is ${picked.c}.`,
+          optionDebunk: [
+            `${picked.w[0]} has a separate physiological role.`,
+            `${picked.c} is correct.`,
+            `${picked.w[1]} is not responsible for this cellular event.`,
+            `${picked.w[2]} executes unrelated reactions.`
+          ]
+        };
+      }
+    }
+
+    function generateFromLocalBank(grade, subj, chapter, targetCount, examLevel) {
+      let pool = [];
+
+      if (grade === 'combined') {
+        const pool11 = QUESTION_BANK[`11_${subj}`] || QUESTION_BANK["11_physics"];
+        const pool12 = QUESTION_BANK[`12_${subj}`] || QUESTION_BANK["12_physics"];
+        pool = [...pool11, ...pool12];
+      } else {
+        const key = `${grade}_${subj}`;
+        pool = QUESTION_BANK[key] || QUESTION_BANK["11_physics"];
+      }
+
+      // Shuffle pool
+      let shuffled = [...pool];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      let generated = [];
+      const examName = EXAM_LEVEL_CONFIG[examLevel]?.badge || "Exam";
+
+      // 1. Add all unique items from bank
+      for (let i = 0; i < shuffled.length && generated.length < targetCount; i++) {
+        const item = shuffled[i];
+        generated.push({
+          question: item.question,
+          options: [...item.options],
+          correct: item.correct,
+          explanation: item.explanation,
+          optionDebunk: item.optionDebunk ? [...item.optionDebunk] : [
+            "Incorrect choice.",
+            "Correct choice.",
+            "Incorrect choice.",
+            "Incorrect choice."
+          ]
+        });
+      }
+
+      // 2. Synthesize distinct procedural questions if requested count exceeds initial bank
+      let seed = 1;
+      while (generated.length < targetCount) {
+        const uniqueQ = createProceduralUniqueQuestion(subj, seed, examName);
+        generated.push(uniqueQ);
+        seed++;
+      }
+
+      return generated.slice(0, targetCount);
+    }
+
+    function selectGrade(grade) {
+      state.grade = grade;
+      document.querySelectorAll('.grade-tab').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'bg-indigo-50/60', 'dark:bg-indigo-950/40', 'text-indigo-900', 'dark:text-indigo-200');
+        btn.classList.add('border-slate-200', 'dark:border-slate-800');
+      });
+      const activeBtn = document.getElementById(`gradeBtn${grade}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-indigo-600', 'bg-indigo-50/60', 'dark:bg-indigo-950/40', 'text-indigo-900', 'dark:text-indigo-200');
+        activeBtn.classList.remove('border-slate-200', 'dark:border-slate-800');
+      }
+
+      populateChapters();
+    }
+
+    function selectSubject(subj) {
+      state.subject = subj;
+      document.querySelectorAll('.subj-tab').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'bg-indigo-50/50', 'dark:bg-indigo-950/40', 'ring-1', 'ring-indigo-400');
+        btn.classList.add('border-slate-200', 'dark:border-slate-800');
+      });
+      const activeBtn = document.getElementById(`subjBtn-${subj}`);
+      if (activeBtn) {
+        activeBtn.classList.add('border-indigo-600', 'bg-indigo-50/50', 'dark:bg-indigo-950/40', 'ring-1', 'ring-indigo-400');
+        activeBtn.classList.remove('border-slate-200', 'dark:border-slate-800');
+      }
+
+      populateChapters();
+    }
+
+    function populateChapters() {
+      const select = document.getElementById('chapterSelect');
+      select.innerHTML = '';
+
+      if (state.grade === 'combined') {
+        const list11 = CHAPTERS_DATA["11"][state.subject] || [];
+        const list12 = CHAPTERS_DATA["12"][state.subject] || [];
+
+        const combinedFullOpt = document.createElement('option');
+        combinedFullOpt.value = 'Combined Full Syllabus (Grade 11 + Grade 12)';
+        combinedFullOpt.textContent = `★ COMPLETE NEET/JEE COMBINED SYLLABUS (All Grade 11 & 12 Chapters - ${state.subject.toUpperCase()})`;
+        select.appendChild(combinedFullOpt);
+
+        list11.forEach(ch => {
+          const opt = document.createElement('option');
+          opt.value = `[Class 11] ${ch}`;
+          opt.textContent = `[Class 11] ${ch}`;
+          select.appendChild(opt);
+        });
+
+        list12.forEach(ch => {
+          const opt = document.createElement('option');
+          opt.value = `[Class 12] ${ch}`;
+          opt.textContent = `[Class 12] ${ch}`;
+          select.appendChild(opt);
+        });
+
+        document.getElementById('chapterCountLabel').textContent = `${list11.length + list12.length} Combined Chapters`;
+        state.chapter = select.value;
+        return;
+      }
+
+      const list = CHAPTERS_DATA[state.grade][state.subject] || [];
+
+      const allOpt = document.createElement('option');
+      allOpt.value = `Class ${state.grade} Comprehensive Full Syllabus`;
+      allOpt.textContent = `★ All Chapters Combined (The Physics Room Class ${state.grade} Mock - ${state.subject.toUpperCase()})`;
+      select.appendChild(allOpt);
+
+      list.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch;
+        opt.textContent = ch;
+        select.appendChild(opt);
+      });
+
+      document.getElementById('chapterCountLabel').textContent = `${list.length} Topics available`;
+      state.chapter = select.value;
+    }
+
+    function setQuestionCount(count) {
+      state.questionCount = count;
+      document.querySelectorAll('.q-count-btn').forEach(btn => {
+        btn.className = 'q-count-btn py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-semibold text-center hover:bg-slate-100 dark:hover:bg-slate-800 transition text-xs sm:text-sm';
+      });
+      const active = document.getElementById(`qCount${count}`);
+      if (active) {
+        active.className = 'q-count-btn py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50 dark:bg-indigo-950/60 font-bold text-indigo-600 dark:text-indigo-400 text-center transition text-xs sm:text-sm';
+      }
+    }
+
+    async function startExam() {
+      const sName = document.getElementById('studentNameInput').value.trim();
+      const sId = document.getElementById('studentIdInput').value.trim();
+      state.studentName = sName || "Student Candidate";
+      state.studentId = sId || "TPR-UNASSIGNED";
+
+      state.chapter = document.getElementById('chapterSelect').value;
+      state.isAiMode = document.getElementById('aiModeToggle').checked;
+      const startBtn = document.getElementById('startExamBtn');
+
+      startBtn.disabled = true;
+      startBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Assembling ${state.questionCount} Questions (${EXAM_LEVEL_CONFIG[state.examLevel].badge})...</span>`;
+
+      try {
+        let questionSet = [];
+
+        if (state.isAiMode) {
+          showToast(`Generating ${state.questionCount} custom ${EXAM_LEVEL_CONFIG[state.examLevel].badge} MCQs via AI...`, "info");
+          questionSet = await fetchQuestionsFromGemini(state.grade, state.subject, state.chapter, state.questionCount, state.examLevel);
+        }
+
+        if (!questionSet || questionSet.length === 0) {
+          questionSet = generateFromLocalBank(state.grade, state.subject, state.chapter, state.questionCount, state.examLevel);
+        }
+
+        state.questions = questionSet;
+        state.currentIndex = 0;
+        state.userAnswers = {};
+        state.bookmarked.clear();
+        state.examSubmitted = false;
+
+        launchExamView();
+      } catch (err) {
+        console.error("Exam load error", err);
+        showToast("Loaded curated non-repeating high-yield test bank.", "info");
+        state.questions = generateFromLocalBank(state.grade, state.subject, state.chapter, state.questionCount, state.examLevel);
+        launchExamView();
+      } finally {
+        startBtn.disabled = false;
+        startBtn.innerHTML = `<span>Start Test</span> <i class="fa-solid fa-arrow-right"></i>`;
+      }
+    }
+
+    async function fetchQuestionsFromGemini(grade, subject, chapter, count, examLevel) {
+      const apiKey = "";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const examName = EXAM_LEVEL_CONFIG[examLevel]?.title || "JEE / NEET / GUJCET";
+      const gradeLabel = grade === 'combined' ? 'Combined Class 11 and Class 12 Full Syllabus' : `Class ${grade}`;
+      const systemPrompt = `You are Mayur Sir, master STEM and Physics educator at 'The Physics Room'. Output strict JSON containing high-difficulty, rigorous multiple-choice questions aligned with ${examName} for ${gradeLabel}. Every question must have an insightful overall solution and distinct debunking sentences for all 4 options explaining why that option is correct or incorrect.`;
+
+      const requestCount = Math.min(count, 15);
+      const userPrompt = `Create exactly ${requestCount} ${examName} level multiple choice questions for ${gradeLabel}, Subject: ${subject}, Chapter: "${chapter}".
+Return ONLY a valid JSON array matching this schema:
+[
+  {
+    "question": "string containing question text and values",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "correct": 0,
+    "explanation": "Step-by-step solution based on Mayur Sir's physics and STEM pedagogical methodology.",
+    "optionDebunk": [
+      "Why Option A is correct/incorrect",
+      "Why Option B is correct/incorrect",
+      "Why Option C is correct/incorrect",
+      "Why Option D is correct/incorrect"
+    ]
+  }
+]`;
+
+      const payload = {
+        contents: [{ parts: [{ text: userPrompt }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        generationConfig: {
+          responseMimeType: "application/json"
+        }
+      };
+
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) throw new Error("Gemini API error");
+      const data = await res.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) return [];
+      const parsed = JSON.parse(rawText);
+
+      let result = Array.isArray(parsed) ? parsed : [];
+      if (result.length < count) {
+        const remaining = count - result.length;
+        const backup = generateFromLocalBank(grade, subject, chapter, remaining, examLevel);
+        result = result.concat(backup);
+      }
+      return result.slice(0, count);
+    }
+
+    function launchExamView() {
+      document.getElementById('viewSetup').classList.add('hidden');
+      document.getElementById('viewResult').classList.add('hidden');
+      document.getElementById('viewExam').classList.remove('hidden');
+      document.getElementById('navExamTimer').classList.remove('hidden');
+      document.getElementById('navExamTimer').classList.add('flex');
+
+      const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+      const gradeStr = state.grade === 'combined' ? 'Class 11 + 12 Combined' : `Class ${state.grade}`;
+
+      document.getElementById('examMetaGrade').textContent = gradeStr;
+      document.getElementById('examMetaSubject').textContent = state.subject.toUpperCase();
+      document.getElementById('examMetaLevelTag').textContent = conf.badge;
+      document.getElementById('examMetaChapter').textContent = state.chapter;
+      document.getElementById('totalQuestionsCountDisplay').textContent = state.questions.length;
+      document.getElementById('paletteExamTag').textContent = conf.badge;
+
+      startTimer();
+      renderPalette();
+      renderCurrentQuestion();
+    }
+
+    function startTimer() {
+      clearInterval(state.timerInterval);
+      state.timerSeconds = 0;
+      updateTimerUI();
+      state.timerInterval = setInterval(() => {
+        state.timerSeconds++;
+        updateTimerUI();
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const mins = Math.floor(state.timerSeconds / 60);
+      const secs = state.timerSeconds % 60;
+      const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      document.getElementById('examTimer').textContent = str;
+      document.getElementById('headerTimerDisplay').textContent = str;
+    }
+
+    function renderCurrentQuestion() {
+      const q = state.questions[state.currentIndex];
+      if (!q) return;
+
+      document.getElementById('currentQuestionNumDisplay').textContent = state.currentIndex + 1;
+      document.getElementById('questionText').textContent = q.question;
+
+      const isBookmarked = state.bookmarked.has(state.currentIndex);
+      const bIcon = document.getElementById('bookmarkIcon');
+      const bBtn = document.getElementById('bookmarkBtn');
+      if (isBookmarked) {
+        bIcon.className = "fa-solid fa-bookmark text-amber-500";
+        bBtn.classList.add("border-amber-400", "bg-amber-50", "dark:bg-amber-950/40");
+      } else {
+        bIcon.className = "fa-regular fa-bookmark";
+        bBtn.classList.remove("border-amber-400", "bg-amber-50", "dark:bg-amber-950/40");
+      }
+
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const selectedOpt = state.userAnswers[state.currentIndex];
+
+      q.options.forEach((optText, idx) => {
+        const isSelected = (selectedOpt === idx);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => selectOption(idx);
+        btn.className = `w-full text-left p-4 rounded-2xl border-2 transition flex items-center gap-4 ${
+          isSelected
+            ? 'border-indigo-600 bg-indigo-50/80 dark:bg-indigo-950/50 text-indigo-950 dark:text-indigo-100 shadow-sm'
+            : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40'
+        }`;
+
+        btn.innerHTML = `
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 transition ${
+            isSelected
+              ? 'bg-indigo-600 text-white'
+              : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+          }">
+            ${letters[idx]}
+          </div>
+          <span class="text-sm sm:text-base font-medium flex-1">${optText}</span>
+          ${isSelected ? '<i class="fa-solid fa-circle-check text-indigo-600 text-lg"></i>' : ''}
+        `;
+
+        container.appendChild(btn);
+      });
+
+      document.getElementById('prevBtn').disabled = (state.currentIndex === 0);
+      const nextLabel = document.getElementById('nextBtnLabel');
+      if (state.currentIndex === state.questions.length - 1) {
+        nextLabel.textContent = "Review Palette";
+      } else {
+        nextLabel.textContent = "Next";
+      }
+
+      renderPalette();
+    }
+
+    function selectOption(optionIndex) {
+      state.userAnswers[state.currentIndex] = optionIndex;
+      renderCurrentQuestion();
+    }
+
+    function clearCurrentSelection() {
+      delete state.userAnswers[state.currentIndex];
+      renderCurrentQuestion();
+    }
+
+    function toggleBookmarkCurrent() {
+      if (state.bookmarked.has(state.currentIndex)) {
+        state.bookmarked.delete(state.currentIndex);
+      } else {
+        state.bookmarked.add(state.currentIndex);
+      }
+      renderCurrentQuestion();
+    }
+
+    function navigateQuestion(offset) {
+      const newIndex = state.currentIndex + offset;
+      if (newIndex >= 0 && newIndex < state.questions.length) {
+        state.currentIndex = newIndex;
+        renderCurrentQuestion();
+      } else if (newIndex >= state.questions.length) {
+        showToast("You've reached the last question. Verify answers and click 'Submit Test'.", "info");
+      }
+    }
+
+    function jumpToQuestion(index) {
+      if (index >= 0 && index < state.questions.length) {
+        state.currentIndex = index;
+        renderCurrentQuestion();
+      }
+    }
+
+    function renderPalette() {
+      const grid = document.getElementById('paletteNumbersGrid');
+      grid.innerHTML = '';
+
+      let attempted = 0;
+      let flagged = state.bookmarked.size;
+
+      state.questions.forEach((_, idx) => {
+        const isCurrent = (state.currentIndex === idx);
+        const isAnswered = (state.userAnswers[idx] !== undefined);
+        const isMarked = state.bookmarked.has(idx);
+
+        if (isAnswered) attempted++;
+
+        let bgClass = "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700";
+
+        if (isMarked) {
+          bgClass = "bg-amber-500 text-white border-amber-600";
+        } else if (isAnswered) {
+          bgClass = "bg-emerald-600 text-white border-emerald-700";
+        }
+
+        const borderStyle = isCurrent ? "ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900 font-black scale-105" : "font-semibold";
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.onclick = () => jumpToQuestion(idx);
+        btn.className = `w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs border transition ${bgClass} ${borderStyle}`;
+        btn.textContent = idx + 1;
+
+        grid.appendChild(btn);
+      });
+
+      document.getElementById('paletteAttemptedCount').textContent = attempted;
+      document.getElementById('paletteMarkedCount').textContent = flagged;
+      document.getElementById('paletteRemainingCount').textContent = (state.questions.length - attempted);
+    }
+
+    function confirmSubmitExam() {
+      const answered = Object.keys(state.userAnswers).length;
+      const total = state.questions.length;
+      const unattempted = total - answered;
+
+      const modalText = document.getElementById('confirmModalText');
+      if (unattempted > 0) {
+        modalText.textContent = `You have completed ${answered} of ${total} questions (${unattempted} unanswered). Are you ready to submit and calculate your ${EXAM_LEVEL_CONFIG[state.examLevel].badge} score?`;
+      } else {
+        modalText.textContent = `You have answered all ${total} questions! Ready to see your detailed performance and explanations?`;
+      }
+
+      document.getElementById('confirmModal').classList.remove('hidden');
+      document.getElementById('confirmModal').classList.add('flex');
+    }
+
+    function closeConfirmModal(shouldSubmit) {
+      document.getElementById('confirmModal').classList.add('hidden');
+      document.getElementById('confirmModal').classList.remove('flex');
+      if (shouldSubmit) {
+        processExamResults();
+      }
+    }
+
+    function processExamResults() {
+      clearInterval(state.timerInterval);
+      state.examSubmitted = true;
+
+      document.getElementById('viewExam').classList.add('hidden');
+      document.getElementById('navExamTimer').classList.add('hidden');
+      document.getElementById('navExamTimer').classList.remove('flex');
+      document.getElementById('viewResult').classList.remove('hidden');
+
+      let correctCount = 0;
+      let incorrectCount = 0;
+      let unattemptedCount = 0;
+
+      state.questions.forEach((q, idx) => {
+        const userChoice = state.userAnswers[idx];
+        if (userChoice === undefined) {
+          unattemptedCount++;
+        } else if (userChoice === q.correct) {
+          correctCount++;
+        } else {
+          incorrectCount++;
+        }
+      });
+
+      const total = state.questions.length;
+      const percentage = Math.round((correctCount / total) * 100);
+
+      const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+      const rawNetMarks = (correctCount * conf.marksCorrect) + (incorrectCount * conf.marksWrong);
+      const netMarks = Number.isInteger(rawNetMarks) ? rawNetMarks : rawNetMarks.toFixed(2);
+      const maxMarks = total * conf.marksCorrect;
+      const gradeLabel = state.grade === 'combined' ? 'Class 11 & 12 (Combined Full Syllabus)' : `Class ${state.grade}`;
+
+      document.getElementById('resTargetExamBadge').textContent = `${conf.title} (${conf.badge})`;
+      document.getElementById('resultMetaSubtitle').textContent = `${gradeLabel} • ${state.subject.toUpperCase()} • ${state.chapter}`;
+      document.getElementById('resCorrectCount').textContent = `${correctCount} / ${total}`;
+      document.getElementById('resIncorrectCount').textContent = `${incorrectCount}`;
+      document.getElementById('resUnansweredCount').textContent = `${unattemptedCount}`;
+      document.getElementById('resNetScoreCalc').textContent = `${netMarks} / ${maxMarks} pts`;
+
+      const mins = Math.floor(state.timerSeconds / 60);
+      const secs = state.timerSeconds % 60;
+      document.getElementById('resTimeSpent').textContent = `${mins}m ${secs}s`;
+
+      document.getElementById('scorePercentVal').textContent = `${percentage}%`;
+      const greetingEl = document.getElementById('resultGreeting');
+      if (percentage >= 85) {
+        greetingEl.textContent = "Superb Mastery! Mayur Sir Commends Your Performance!";
+      } else if (percentage >= 60) {
+        greetingEl.textContent = "Good Command! Fine-tune Speed and Negative Distractors.";
+      } else {
+        greetingEl.textContent = "Target Practice Required! Review Mayur Sir's logic below.";
+      }
+
+      setTimeout(() => {
+        const strokeDashOffset = 264 - (264 * percentage) / 100;
+        const circle = document.getElementById('scoreCircleSvg');
+        circle.style.strokeDashoffset = strokeDashOffset;
+        if (percentage >= 70) {
+          circle.classList.remove('text-rose-500', 'text-amber-500');
+          circle.classList.add('text-emerald-500');
+        } else if (percentage >= 40) {
+          circle.classList.remove('text-rose-500', 'text-emerald-500');
+          circle.classList.add('text-amber-500');
+        } else {
+          circle.classList.remove('text-emerald-500', 'text-amber-500');
+          circle.classList.add('text-rose-500');
+        }
+      }, 100);
+
+      renderSolutionsList('all');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openStudentReportModal() {
+      buildStudentReportData();
+      const modal = document.getElementById('studentReportModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeStudentReportModal() {
+      const modal = document.getElementById('studentReportModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function printStudentReportDirectly() {
+      buildStudentReportData();
+      window.print();
+    }
+
+    function buildStudentReportData() {
+      const total = state.questions.length;
+      let correct = 0;
+      let incorrect = 0;
+      let unattempted = 0;
+
+      state.questions.forEach((q, idx) => {
+        const picked = state.userAnswers[idx];
+        if (picked === undefined) {
+          unattempted++;
+        } else if (picked === q.correct) {
+          correct++;
+        } else {
+          incorrect++;
+        }
+      });
+
+      const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+      const accuracy = Math.round((correct / total) * 100);
+      const rawNetScore = (correct * conf.marksCorrect) + (incorrect * conf.marksWrong);
+      const netScore = Number.isInteger(rawNetScore) ? rawNetScore : rawNetScore.toFixed(2);
+      const maxMarks = total * conf.marksCorrect;
+      const avgSpeed = (state.timerSeconds > 0 && total > 0) ? Math.round(state.timerSeconds / total) : 0;
+      const mins = Math.floor(state.timerSeconds / 60);
+      const secs = state.timerSeconds % 60;
+      const gradeLabel = state.grade === 'combined' ? 'Class 11 + 12 Full Mock' : `Class ${state.grade}`;
+
+      document.getElementById('repGeneratedDate').textContent = new Date().toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+      document.getElementById('repTargetStandard').textContent = `${conf.title} (${conf.badge})`;
+      document.getElementById('repMarkingScheme').textContent = conf.desc;
+      document.getElementById('repNetSchemeLabel').textContent = conf.desc;
+
+      document.getElementById('repStudentName').textContent = state.studentName;
+      document.getElementById('repStudentId').textContent = state.studentId;
+      document.getElementById('repStudentGrade').textContent = `${gradeLabel} • ${conf.badge}`;
+      document.getElementById('repStudentSubject').textContent = `${state.subject.toUpperCase()} - ${state.chapter}`;
+
+      document.getElementById('repMetricAccuracy').textContent = `${accuracy}%`;
+      document.getElementById('repMetricNetMarks').textContent = `${netScore} / ${maxMarks}`;
+      document.getElementById('repMetricSpeed').textContent = `${avgSpeed}s`;
+      document.getElementById('repMetricDuration').textContent = `${mins}m ${secs}s`;
+
+      const badge = document.getElementById('repAccuracyBadge');
+      if (accuracy >= 85) {
+        badge.textContent = "Mayur Sir Star Performer";
+        badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 mt-1 inline-block";
+      } else if (accuracy >= 65) {
+        badge.textContent = "Competitive Ready";
+        badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-200 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200 mt-1 inline-block";
+      } else if (accuracy >= 45) {
+        badge.textContent = "Foundational Stage";
+        badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-200 text-amber-800 dark:bg-amber-900 dark:text-amber-200 mt-1 inline-block";
+      } else {
+        badge.textContent = "Intense Revision Needed";
+        badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-200 text-rose-800 dark:bg-rose-900 dark:text-rose-200 mt-1 inline-block";
+      }
+
+      document.getElementById('repDistCorrect').textContent = `${correct} / ${total}`;
+      document.getElementById('repDistIncorrect').textContent = `${incorrect} / ${total}`;
+      document.getElementById('repDistSkipped').textContent = `${unattempted} / ${total}`;
+
+      if (accuracy >= 80) {
+        document.getElementById('repStrengthsList').textContent = `Outstanding conceptual depth in ${state.chapter}. High speed and minimal unforced errors under ${conf.badge} format.`;
+        document.getElementById('repWeaknessList').textContent = `Maintain rigorous mock practice; solve Mayur Sir's advanced problem sets.`;
+      } else if (accuracy >= 50) {
+        document.getElementById('repStrengthsList').textContent = `Good hold over direct formulas and standard derivations.`;
+        document.getElementById('repWeaknessList').textContent = `Distractor trap avoidance: focus on eliminating negative marks in ${conf.badge}.`;
+      } else {
+        document.getElementById('repStrengthsList').textContent = `Attempted foundational questions; identified clear gaps.`;
+        document.getElementById('repWeaknessList').textContent = `Urgent revision of core theorems, sign conventions, and fundamental mechanics.`;
+      }
+
+      const randHash = Math.random().toString(36).substring(2, 7).toUpperCase();
+      document.getElementById('repSignatureId').textContent = `TPR-G${state.grade}-${state.subject.substring(0,3).toUpperCase()}-${conf.badge.replace(/\s+/g, '')}-${randHash}`;
+
+      const tbody = document.getElementById('repTableBody');
+      tbody.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+
+      state.questions.forEach((q, idx) => {
+        const picked = state.userAnswers[idx];
+        const isRight = (picked === q.correct);
+        const isSkip = (picked === undefined);
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50/50 dark:hover:bg-slate-800/40";
+
+        let statusText = '';
+        let impactText = '';
+
+        if (isSkip) {
+          statusText = '<span class="text-amber-600 dark:text-amber-400 font-bold">Skipped</span>';
+          impactText = '<span class="text-slate-400 font-semibold">0</span>';
+        } else if (isRight) {
+          statusText = '<span class="text-emerald-600 dark:text-emerald-400 font-bold">Correct</span>';
+          impactText = `<span class="text-emerald-600 font-bold">+${conf.marksCorrect}</span>`;
+        } else {
+          statusText = '<span class="text-rose-600 dark:text-rose-400 font-bold">Wrong</span>';
+          impactText = `<span class="text-rose-600 font-bold">${conf.marksWrong}</span>`;
+        }
+
+        const questionSnippet = q.question.length > 55 ? q.question.substring(0, 52) + "..." : q.question;
+
+        tr.innerHTML = `
+          <td class="p-2.5 font-bold text-slate-500">#${idx + 1}</td>
+          <td class="p-2.5 font-medium max-w-xs truncate">${questionSnippet}</td>
+          <td class="p-2.5 text-center font-bold font-mono">${isSkip ? '-' : letters[picked]}</td>
+          <td class="p-2.5 text-center font-bold font-mono text-emerald-600">${letters[q.correct]}</td>
+          <td class="p-2.5 text-center">${statusText}</td>
+          <td class="p-2.5 text-right font-mono">${impactText}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function generateAiStudyAdvisory() {
+      const container = document.getElementById('aiAdvisoryContent');
+      const btn = document.getElementById('aiMentorBtn');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Mayur Sir AI Analyzing...</span>`;
+      container.innerHTML = `<span class="text-indigo-500 animate-pulse font-medium">Mayur Sir is diagnosing your errors and crafting an action plan...</span>`;
+
+      try {
+        let wrongQuestions = [];
+        state.questions.forEach((q, idx) => {
+          if (state.userAnswers[idx] !== q.correct) {
+            wrongQuestions.push(`Q${idx+1}: "${q.question.substring(0, 60)}"`);
+          }
+        });
+
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+        const prompt = `You are Mayur Sir, renowned founder of 'The Physics Room'. Write a motivational and precise 3-bullet study advisory for student ${state.studentName} preparing for ${conf.title} on Chapter: "${state.chapter}".
+Student answered ${state.questions.length - wrongQuestions.length}/${state.questions.length} correctly.
+Questions missed or skipped: ${wrongQuestions.slice(0, 4).join('; ') || 'None, flawless score!'}.
+Provide specific problem-solving techniques and focus points under 80 words.`;
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            systemInstruction: { parts: [{ text: "You are Mayur Sir from The Physics Room. Provide inspiring and concrete advice." }] }
+          })
+        });
+
+        const result = await response.json();
+        const advice = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (advice) {
+          container.innerHTML = `<div class="font-medium whitespace-pre-line text-slate-700 dark:text-slate-300">${advice}</div>`;
+        } else {
+          container.innerHTML = `Mayur Sir recommends revising the core principles of ${state.chapter}. Solve 25 graded problems from past papers and eliminate negative marking.`;
+        }
+      } catch (err) {
+        console.error("Advisory error", err);
+        container.innerHTML = `Focus revision on the specific questions flagged wrong. Re-read fundamental derivations and solve targeted practice problems in ${state.chapter}.`;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> <span>Refresh AI Guidance</span>`;
+      }
+    }
+
+    function filterReviewList(filter) {
+      const allBtn = document.getElementById('filterBtnAll');
+      const incBtn = document.getElementById('filterBtnIncorrect');
+      const corBtn = document.getElementById('filterBtnCorrect');
+
+      const inactiveClass = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition';
+      const activeClass = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white transition';
+
+      allBtn.className = (filter === 'all') ? activeClass : inactiveClass;
+      incBtn.className = (filter === 'incorrect') ? activeClass : inactiveClass;
+      corBtn.className = (filter === 'correct') ? activeClass : inactiveClass;
+
+      renderSolutionsList(filter);
+    }
+
+    function renderSolutionsList(filter) {
+      const container = document.getElementById('solutionsReviewContainer');
+      container.innerHTML = '';
+      const letters = ['A', 'B', 'C', 'D'];
+      const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+
+      let renderedCount = 0;
+
+      state.questions.forEach((q, idx) => {
+        const userChoice = state.userAnswers[idx];
+        const isCorrect = (userChoice === q.correct);
+        const isUnanswered = (userChoice === undefined);
+
+        if (filter === 'correct' && !isCorrect) return;
+        if (filter === 'incorrect' && (isCorrect || isUnanswered)) return;
+
+        renderedCount++;
+
+        let statusBadge = '';
+        let cardBorder = 'border-slate-200 dark:border-slate-800';
+
+        if (isUnanswered) {
+          statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"><i class="fa-solid fa-circle-question mr-1"></i> Unanswered (0)</span>';
+        } else if (isCorrect) {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300"><i class="fa-solid fa-circle-check mr-1"></i> Correct (+${conf.marksCorrect})</span>`;
+          cardBorder = 'border-emerald-200 dark:border-emerald-900/40';
+        } else {
+          statusBadge = `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300"><i class="fa-solid fa-circle-xmark mr-1"></i> Incorrect (${conf.marksWrong})</span>`;
+          cardBorder = 'border-rose-200 dark:border-rose-900/40';
+        }
+
+        const card = document.createElement('div');
+        card.className = `bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-7 border ${cardBorder} shadow-sm space-y-5`;
+
+        let optionsHtml = '<div class="space-y-2.5 pt-2">';
+        q.options.forEach((optText, optIdx) => {
+          const isRightOpt = (optIdx === q.correct);
+          const isUserPicked = (optIdx === userChoice);
+
+          let optBoxStyle = "border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30";
+          let badgeTag = "";
+
+          if (isRightOpt) {
+            optBoxStyle = "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-100";
+            badgeTag = `<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 ml-auto flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct Answer</span>`;
+          } else if (isUserPicked && !isRightOpt) {
+            optBoxStyle = "border-rose-500 bg-rose-50/70 dark:bg-rose-950/40 text-rose-950 dark:text-rose-100";
+            badgeTag = `<span class="text-[11px] font-bold px-2 py-0.5 rounded bg-rose-200 text-rose-800 dark:bg-rose-900 dark:text-rose-200 ml-auto flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Your Selection</span>`;
+          }
+
+          const optReason = (q.optionDebunk && q.optionDebunk[optIdx]) ? q.optionDebunk[optIdx] : "";
+
+          optionsHtml += `
+            <div class="p-3.5 rounded-2xl border ${optBoxStyle} transition">
+              <div class="flex items-center gap-3">
+                <span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 ${isRightOpt ? 'bg-emerald-600 text-white' : (isUserPicked ? 'bg-rose-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300')}">
+                  ${letters[optIdx]}
+                </span>
+                <span class="font-medium text-sm">${optText}</span>
+                ${badgeTag}
+              </div>
+              ${optReason ? `
+                <div class="mt-2 text-xs text-slate-500 dark:text-slate-400 pl-10 border-t border-slate-200/50 dark:border-slate-800/50 pt-1.5 flex items-start gap-1.5">
+                  <span class="font-semibold text-slate-600 dark:text-slate-300">Why ${isRightOpt ? 'Right' : 'Wrong'}:</span>
+                  <span>${optReason}</span>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        });
+        optionsHtml += '</div>';
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Question ${idx + 1} • ${conf.badge}</span>
+            <div>${statusBadge}</div>
+          </div>
+
+          <h4 class="text-base sm:text-lg font-semibold text-slate-900 dark:text-white leading-relaxed">
+            ${q.question}
+          </h4>
+
+          ${optionsHtml}
+
+          <div class="mt-4 p-4 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900/60 space-y-1.5">
+            <div class="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold text-xs uppercase tracking-wider">
+              <i class="fa-solid fa-lightbulb text-amber-500"></i>
+              <span>Mayur Sir's Concept Guide & Analytical Solution</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              ${q.explanation}
+            </p>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      if (renderedCount === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 text-slate-500">
+            <i class="fa-regular fa-folder-open text-3xl mb-2 text-slate-400"></i>
+            <p class="font-semibold text-sm">No questions match this filter criteria.</p>
+          </div>
+        `;
+      }
+    }
+
+    function resetToSetup() {
+      clearInterval(state.timerInterval);
+      document.getElementById('viewResult').classList.add('hidden');
+      document.getElementById('viewExam').classList.add('hidden');
+      document.getElementById('navExamTimer').classList.add('hidden');
+      document.getElementById('navExamTimer').classList.remove('flex');
+      document.getElementById('viewSetup').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showToast(msg, type = "info") {
+      const toast = document.getElementById('toastNotification');
+      const text = document.getElementById('toastMsg');
+      const icon = document.getElementById('toastIcon');
+
+      text.textContent = msg;
+      if (type === "warning") {
+        icon.className = "fa-solid fa-triangle-exclamation text-amber-400";
+      } else {
+        icon.className = "fa-solid fa-circle-info text-indigo-400";
+      }
+
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    function copyScoreSummary() {
+      const correct = document.getElementById('resCorrectCount').textContent;
+      const percent = document.getElementById('scorePercentVal').textContent;
+      const net = document.getElementById('resNetScoreCalc').textContent;
+      const time = document.getElementById('resTimeSpent').textContent;
+      const conf = EXAM_LEVEL_CONFIG[state.examLevel] || EXAM_LEVEL_CONFIG.jee;
+
+      const text = `The Physics Room by Mayur Sir - Exam Report:\nLevel: ${conf.title}\nClass: ${state.grade} • ${state.subject.toUpperCase()} - ${state.chapter}\nAccuracy: ${percent}\nNet Score: ${net}\nCorrect: ${correct}\nTime: ${time}`;
+
+      const tempInput = document.createElement("textarea");
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      showToast("Report summary copied to clipboard!", "info");
+    }
+
+    window.onload = function () {
+      if (sessionStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+      populateChapters();
+      selectExamLevel('jee');
+    };
+  </script>
+</body>
+</html>
